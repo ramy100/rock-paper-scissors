@@ -2,10 +2,10 @@
 module.exports = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    screens: {
-      mobile: '375px',
-      desktop: '1366px',
-    },
+    // screens: {
+    //   mobile: '375px',
+    //   desktop: '1366px',
+    // },
     extend: {
       gradientColorStops: {
         scissors: ['hsl(39, 89%, 49%)', 'hsl(40, 84%, 53%)'],
