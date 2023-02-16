@@ -14,7 +14,7 @@ const Button: React.FunctionComponent<React.PropsWithChildren<Props>> = ({
     <button
       {...rest}
       className={
-        'rounded-md px-7 py-1 active:scale-90 duration-75 text-center' +
+        'rounded-md px-7 py-1 active:scale-90 duration-75 text-center ' +
         (className ? className : '') +
         (outline ? ' outline outline-2' : '')
       }>

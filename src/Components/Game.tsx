@@ -1,23 +1,19 @@
-import GameChoice from './GameChoice';
+import { useState } from 'react';
+import Choices from './Choices';
+import { choices } from './GameChoice';
+import Result from './Result';
 
 type Props = {};
 
 const Game: React.FunctionComponent<React.PropsWithChildren<Props>> = ({}) => {
+  const [choice, setChoice] = useState<choices>();
   return (
     <div className="w-full max-w-lg aspect-square relative flex flex-col gap-10 justify-between items-center">
-      <img
-        src="/images/bg-pentagon.svg"
-        className="absolute h-[80%] bottom-[7%] left-0 right-0 m-auto"
-      />
-      <GameChoice choice="scissors" />
-      <div className="flex w-full justify-between">
-        <GameChoice choice="spock" />
-        <GameChoice choice="paper" />
-      </div>
-      <div className="flex w-full justify-around">
-        <GameChoice choice="lizard" />
-        <GameChoice choice="rock" />
-      </div>
+      {!choice ? (
+        <Choices onChoose={(c) => setChoice(c)} />
+      ) : (
+        <Result onPlayAgain={() => setChoice(undefined)} choice={choice} />
+      )}
     </div>
   );
 };
