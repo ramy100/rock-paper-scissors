@@ -9,14 +9,14 @@ const Game: React.FunctionComponent<React.PropsWithChildren<Props>> = ({}) => {
         src="/images/bg-pentagon.svg"
         className="absolute h-[80%] bottom-[7%] left-0 right-0 m-auto"
       />
-      <GameChoice choice="rock" />
+      <GameChoice choice="scissors" />
       <div className="flex w-full justify-between">
+        <GameChoice choice="spock" />
         <GameChoice choice="paper" />
-        <GameChoice choice="scissors" />
       </div>
       <div className="flex w-full justify-around">
         <GameChoice choice="lizard" />
-        <GameChoice choice="spock" />
+        <GameChoice choice="rock" />
       </div>
     </div>
   );
