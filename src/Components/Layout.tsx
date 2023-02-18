@@ -13,12 +13,12 @@ const Layout: React.FunctionComponent<React.PropsWithChildren<Props>> = ({
   const [showModal, setShowModal] = useState(false);
   const [score, setScore] = useState(0);
   return (
-    <div className="h-full flex flex-col items-center p-5 md:p-20 gap-10 ">
+    <div className="h-full flex flex-col items-center p-5 md:p-20 gap-10 overflow-x-hidden">
       <Score score={score} />
       <div className="flex-1 w-full flex justify-center items-center">
         <Game />
       </div>
-      <div className="self-end">
+      <div className="md:self-end">
         <Button
           onClick={() => {
             setShowModal(true);
@@ -30,11 +30,16 @@ const Layout: React.FunctionComponent<React.PropsWithChildren<Props>> = ({
       </div>
       <Footer />
       <Modal
+        title="rules"
         isOpen={showModal}
         onClose={() => {
           setShowModal(false);
         }}>
-        <img width={700} src="/images/image-rules-bonus.svg" alt="rules" />
+        <img
+          className="w-[60vh] "
+          src="/images/image-rules-bonus.svg"
+          alt="rules"
+        />
       </Modal>
     </div>
   );
