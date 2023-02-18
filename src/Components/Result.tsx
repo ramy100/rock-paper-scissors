@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { ScoreContext } from '../ScoreContext';
 import Button from './Button';
 import GameChoice, { choices } from './GameChoice';
 
@@ -19,9 +20,11 @@ const Result: React.FunctionComponent<
   const { choice } = useParams<{ choice: choices }>();
   if (!choice || !allChoices.includes(choice)) return null;
   const availableChoices = allChoices.filter((c) => c != choice) as choices[];
+  const { setData } = useContext(ScoreContext);
 
   const [computerPick, setComputerPick] = useState<choices>();
   const [winner, setWinner] = useState<'player' | 'computer'>();
+
   useEffect(() => {
     setTimeout(() => {
       setComputerPick(
@@ -30,9 +33,16 @@ const Result: React.FunctionComponent<
     }, 1000);
   }, []);
   useEffect(() => {
-    if (computerPick)
+    if (computerPick) {
       setWinner(rules[choice][computerPick] ? 'player' : 'computer');
+    }
   }, [computerPick]);
+
+  useEffect(() => {
+    if (!setData || !computerPick) return;
+    const newScore = winner == 'player' ? +1 : -1;
+    setData((old) => old + newScore);
+  }, [winner]);
 
   const navigate = useNavigate();
   if (!choice) return null;

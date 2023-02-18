@@ -1,11 +1,14 @@
 import { Outlet } from 'react-router-dom';
 import Layout from './Components/Layout';
+import ScoreContextProvider from './ScoreContext';
 
 function App() {
   return (
-    <Layout>
-      <Outlet></Outlet>
-    </Layout>
+    <ScoreContextProvider>
+      <Layout>
+        <Outlet></Outlet>
+      </Layout>
+    </ScoreContextProvider>
   );
 }
 

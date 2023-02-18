@@ -28,7 +28,7 @@ const GameChoice: React.FunctionComponent<React.PropsWithChildren<Props>> = ({
             `rounded-full bg-white w-full h-full flex items-center justify-center` +
             (choice
               ? ` bg-${choice}-image bg-[length:50%_50%] bg-no-repeat bg-center`
-              : ' bg-dark')
+              : ' bg-black/50')
           }></div>
       </div>
     </motion.div>

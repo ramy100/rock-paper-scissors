@@ -11,10 +11,9 @@ const Layout: React.FunctionComponent<React.PropsWithChildren<Props>> = ({
   children,
 }) => {
   const [showModal, setShowModal] = useState(false);
-  const [score, setScore] = useState(0);
   return (
     <div className="h-full flex flex-col items-center p-5 md:p-20 gap-10 overflow-x-hidden">
-      <Score score={score} />
+      <Score />
       <div className="flex-1 w-full flex justify-center items-center">
         <Game />
       </div>
