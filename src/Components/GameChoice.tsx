@@ -21,7 +21,7 @@ const GameChoice: React.FunctionComponent<React.PropsWithChildren<Props>> = ({
           (choice
             ? ` bg-gradient-to-r from-${choice}-0 to-${choice}-1`
             : ' bg-transparent') +
-          (isResult ? ' md:w-48 w-36' : ' sm:w-36 w-28')
+          (isResult ? ' md:w-48 w-36' : ' sm:w-40 w-28')
         }>
         <div
           className={
