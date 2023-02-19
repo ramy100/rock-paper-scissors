@@ -1,6 +1,8 @@
 import { AnimatePresence, motion } from 'framer-motion';
+import Lottie from 'lottie-react';
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import WinAnimation from '../../public/images/win.json';
 import { ScoreContext } from '../ScoreContext';
 import Button from './Button';
 import GameChoice, { choices } from './GameChoice';
@@ -24,14 +26,25 @@ const Result: React.FunctionComponent<
 
   const [computerPick, setComputerPick] = useState<choices>();
   const [winner, setWinner] = useState<'player' | 'computer'>();
-
+  const [countDown, setCountDown] = useState(3);
   useEffect(() => {
-    setTimeout(() => {
-      setComputerPick(
-        availableChoices[Math.floor(Math.random() * availableChoices.length)]
-      );
-    }, 1000);
+    let interval: number;
+    interval = setInterval(() => {
+      setCountDown((old) => {
+        if (old == 1) {
+          clearInterval(interval);
+          setComputerPick(
+            availableChoices[
+              Math.floor(Math.random() * availableChoices.length)
+            ]
+          );
+          return old;
+        }
+        return old - 1;
+      });
+    }, 500);
   }, []);
+
   useEffect(() => {
     if (computerPick) {
       setWinner(rules[choice][computerPick] ? 'player' : 'computer');
@@ -87,21 +100,36 @@ const Result: React.FunctionComponent<
             <div className="absolute animate-ping w-[70%] h-[70%] rounded-full bg-white/20 bottom-0 top-0 left-0 right-0 m-auto z-0"></div>
           </>
         )}
-        <GameChoice choice={computerPick} />
+        {computerPick ? (
+          <GameChoice choice={computerPick} />
+        ) : (
+          <div className="bg-dark h-full md:w-48 w-36 rounded-full text-center flex justify-center items-center">
+            <span className="text-6xl">{countDown}</span>
+          </div>
+        )}
       </div>
       <AnimatePresence>
         {winner && (
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
-            className="flex flex-col gap-5 col-span-6 items-center md:col-span-2">
+            exit={{ scale: 0 }}
+            className="flex flex-col gap-5 col-span-6 items-center md:col-span-2 relative">
+            {winner == 'player' && (
+              <Lottie
+                className="absolute w-full z-0 -top-20"
+                animationData={WinAnimation}
+                loop={true}
+                autoplay={true}
+              />
+            )}
             <h1 className="text-6xl font-bold text-center">
               You {computerPick && (winner == 'player' ? 'Won' : 'lost')}
             </h1>
             <Button
               onClick={() => navigate('/')}
               title="Play again"
-              className="bg-white text-black uppercase tracking-widest"
+              className="bg-white text-black uppercase tracking-widest z-10"
             />
           </motion.div>
         )}

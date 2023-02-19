@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="flex gap-2">
+    <footer className="flex gap-5 flex-col md:flex-row justify-center items-center">
       <div>
         Challenge by{' '}
         <a

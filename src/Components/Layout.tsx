@@ -17,11 +17,10 @@ const Layout: React.FunctionComponent<React.PropsWithChildren<Props>> = ({
       <div className="flex-1 w-full flex justify-center items-center">
         <Game />
       </div>
-      <div className="md:self-end">
+      <div className="md:self-end z-10">
         <Button
           onClick={() => {
             setShowModal(true);
-            console.log('object');
           }}
           title="Rules"
           outline
