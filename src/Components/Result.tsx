@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Lottie from 'lottie-react';
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -60,24 +60,24 @@ const Result: React.FunctionComponent<
   const navigate = useNavigate();
   if (!choice) return null;
   return (
-    <div className="w-full max-w-4xl relative grid grid-cols-6 justify-items-center gap-10 md:gap-20 uppercase">
+    <div className="w-full max-w-4xl uppercase grid grid-cols-2 md:grid-cols-6  justify-items-center gap-5">
       <span
         className={
-          'text-center text-xl col-span-3' +
-          (computerPick ? ' md:col-span-2' : '')
+          'md:col-span-2 text-xl text-center' +
+          (!winner ? ' md:col-span-3' : '')
         }>
         You Picked {choice}
       </span>
       <span
         className={
-          'text-center text-xl col-span-3' +
-          (computerPick ? ' md:col-span-2 md:col-start-5' : '')
+          'md:col-span-2 text-xl text-center' +
+          (!winner ? ' md:col-span-3' : ' md:col-start-5')
         }>
         The house Picked {computerPick}
       </span>
       <div
         className={
-          'col-span-3 relative ' + (computerPick ? ' md:col-span-2' : '')
+          'relative md:col-span-2' + (!winner ? ' md:col-span-3' : '')
         }>
         {winner == 'player' && (
           <>
@@ -90,8 +90,8 @@ const Result: React.FunctionComponent<
       </div>
       <div
         className={
-          'col-span-3 md:order-last relative' +
-          (computerPick ? ' md:col-span-2' : '')
+          'relative md:col-span-2 md:order-last' +
+          (!winner ? ' md:col-span-3' : '')
         }>
         {winner == 'computer' && (
           <>
@@ -108,32 +108,30 @@ const Result: React.FunctionComponent<
           </div>
         )}
       </div>
-      <AnimatePresence>
-        {winner && (
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            exit={{ scale: 0 }}
-            className="flex flex-col gap-5 col-span-6 items-center md:col-span-2 relative">
-            {winner == 'player' && (
-              <Lottie
-                className="absolute w-full z-0 -top-20"
-                animationData={WinAnimation}
-                loop={true}
-                autoplay={true}
-              />
-            )}
-            <h1 className="text-6xl font-bold text-center">
-              You {computerPick && (winner == 'player' ? 'Won' : 'lost')}
-            </h1>
-            <Button
-              onClick={() => navigate('/')}
-              title="Play again"
-              className="bg-white text-black uppercase tracking-widest z-10"
+      {winner && (
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          exit={{ scale: 0 }}
+          className="flex flex-col gap-5 items-center relative  col-span-2">
+          {winner == 'player' && (
+            <Lottie
+              className="absolute w-full z-0 -top-20"
+              animationData={WinAnimation}
+              loop={true}
+              autoplay={true}
             />
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+          <h1 className="text-6xl font-bold text-center">
+            You {computerPick && (winner == 'player' ? 'Won' : 'lost')}
+          </h1>
+          <Button
+            onClick={() => navigate('/')}
+            title="Play again"
+            className="bg-white text-black uppercase tracking-widest z-10"
+          />
+        </motion.div>
+      )}
     </div>
   );
 };
